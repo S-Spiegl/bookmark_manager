@@ -14,8 +14,8 @@ As a user
 To be able to see my bookmarks
 I'd like to see a list of my bookmarks
 
-As a user 
-So I can keep track my bookmarks
+As a user
+So I can keep track of my bookmarks
 I want to add a bookmark to Bookmark Manager
 ```
 
