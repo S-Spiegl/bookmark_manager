@@ -4,20 +4,22 @@ require 'pg'
 describe Bookmark do
   describe '#all' do
     it 'returns a list of bookmarks' do
-      # connection = PG.connect(dbname: 'bookmark_manager_test')
-      # connection.exec("INSERT INTO bookmarks (url) VALUES ('http://www.makersacademy.com');")
-      # connection.exec("INSERT INTO bookmarks (url) VALUES ('http://www.orangepippintrees.co.uk');")
-      # connection.exec("INSERT INTO bookmarks (url) VALUES ('http://www.test.com');")
-      #refactored the commented-out above and replaced with below
-      Bookmark.add("http://www.makersacademy.com", 'Makers')
+      bookmark = Bookmark.add("http://www.makersacademy.com", 'Makers')
       Bookmark.add("http://www.orangepippintrees.co.uk", 'Orange')
       Bookmark.add("http://www.test.com", 'Test')
       bookmarks = Bookmark.all
-      expect(bookmarks).to include(["http://www.makersacademy.com", "Makers"])
-      expect(bookmarks).to include(["http://www.orangepippintrees.co.uk", "Orange"])
-      expect(bookmarks).to include(["http://www.test.com", "Test"])
+      expect(bookmarks.length).to eq 3
+      expect(bookmarks.first).to be_a Bookmark
+      expect(bookmarks.first.id).to eq bookmark.id
+      expect(bookmarks.first.title). to eq 'Makers'
+      expect(bookmarks.first.url).to eq 'http://www.makersacademy.com'
     end
   end
+
+#
+#    expect(bookmarks.first.url).to eq 'http://www.makersacademy.com'
+#   end
+# end
 
   describe '#add' do
     it 'adds a bookmark' do
