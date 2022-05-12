@@ -1,12 +1,13 @@
 require 'bookmark'
 require 'pg'
+require 'database_helpers'
 
 describe Bookmark do
   describe '#all' do
     it 'returns a list of bookmarks' do
-      bookmark = Bookmark.add("http://www.makersacademy.com", 'Makers')
-      Bookmark.add("http://www.orangepippintrees.co.uk", 'Orange')
-      Bookmark.add("http://www.test.com", 'Test')
+      bookmark = Bookmark.add(url: "http://www.makersacademy.com", title: 'Makers')
+      Bookmark.add(url: "http://www.orangepippintrees.co.uk", title: 'Orange')
+      Bookmark.add(url: "http://www.test.com", title: 'Test')
       bookmarks = Bookmark.all
       expect(bookmarks.length).to eq 3
       expect(bookmarks.first).to be_a Bookmark
@@ -16,18 +17,15 @@ describe Bookmark do
     end
   end
 
-#
-#    expect(bookmarks.first.url).to eq 'http://www.makersacademy.com'
-#   end
-# end
-
   describe '#add' do
     it 'adds a bookmark' do
       # connection = PG.connect(dbname: 'bookmark_manager_test')
-      url = 'www.makers.com'
-      title = 'Makers'
-      Bookmark.add(url, title)
-      expect(Bookmark.all.first).to eq([url, title])
+      bookmark = Bookmark.add(url: 'http://www.makers.com', title: 'Makers')
+      persisted_data = persisted_data(id: bookmark.id)
+      expect(bookmark).to be_a Bookmark
+      expect(bookmark.id).to eq persisted_data.first['id']
+      expect(bookmark.title).to eq 'Makers'
+      expect(bookmark.url).to eq 'http://www.makers.com'
     end
   end
 end
