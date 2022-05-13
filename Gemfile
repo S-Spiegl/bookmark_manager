@@ -11,6 +11,7 @@ gem 'sinatra-contrib'
 gem 'webrick'
 gem 'launchy'
 gem 'pg'
+gem 'rerun'
 
 group :test do
   gem 'capybara'
